@@ -10,8 +10,13 @@
     "prod": "vite --mode prod",
     "build": "tsc -b && vite build --mode prod",
     "build:dev": "tsc -b && vite build --mode dev",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx ./src --max-warnings 0",
+    "lint:fix": "eslint --cache --fix --ext .js,.jsx,.ts,.tsx ./src --max-warnings 0",
+    "preview": "vite preview",
+    "prepare": "husky install"
+  },
+    "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --max-warnings 0"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -24,8 +29,12 @@
     "@typescript-eslint/parser": "^7.15.0",
     "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   }
