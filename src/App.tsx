@@ -1,14 +1,17 @@
-import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import { ConfigProvider, theme, App as AntdApp } from "antd";
+import router from "@/router";
+import EscapeAntd from "./components/EscapeAntd";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center">
-      <h1 className="h1">React Admin Template</h1>
-      <h2>Current Env: {import.meta.env.VITE_APP_ENV}</h2>
-      <h2>API HOST: {import.meta.env.VITE_API_HOST}</h2>
-      <h2>Var load all env: {import.meta.env.VITE_LOAD_ALL_ENV}</h2>
-    </div>
+    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
+      <AntdApp>
+        <EscapeAntd />
+        <RouterProvider router={router} />
+      </AntdApp>
+    </ConfigProvider>
   );
-}
+};
 
 export default App;
