@@ -14,12 +14,15 @@ const SubTable1 = withAuth(
 const SubTable2 = withAuth(
   loadable(() => import("@/pages/table/subPage/table2")),
 );
+const Admin = withAuth(loadable(() => import("@/pages/admin")));
+const NotFound = withAuth(loadable(() => import("@/pages/not-found")));
 
 const pagesMap: Record<string, JSX.Element> = {
   "@/pages/dashboard": <Dashboard />,
   "@/pages/table": <Table />,
   "@/pages/table/subPage/table1": <SubTable1 />,
   "@/pages/table/subPage/table2": <SubTable2 />,
+  "@/pages/admin": <Admin />,
 };
 
 const resolveRoutes = (route: Route | undefined) => {
@@ -41,6 +44,7 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [...routesWithoutLayout, ...routesWithLayout],
+    errorElement: <NotFound />,
   },
 ]);
 

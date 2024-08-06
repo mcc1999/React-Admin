@@ -1,5 +1,19 @@
 # React Admin Template
 
+## TODO
+
+1. 环境变量✅
+2. 代码格式化和语法检测✅
+3. axios请求封装✅
+4. 页面鉴权WithAuth✅
+5. Router和Layout✅
+6. 路由权限管理✅
+7. 状态管理(userInfo...)✅
+8. 主题切换❌
+9. 多语言❌
+10. Echarts❌
+11. 各种组件Example❌
+
 ## 环境变量
 
 - 设置方式：根目录下`.env`/`.env.[mode]`文件内
@@ -22,6 +36,7 @@
   - 使用`prettierignore`忽略文件格式化 && `prettier-ignore`注释忽略文件内格式化
 
 - eslint
+
   - vite 创建项目预装`eslint`和配置文件，在`rules`对象内添加规则
   - 安装`eslint-config-prettier devDependency`，并添加`prettier`到`eslintrc`文件的`extends`数组最后，来覆盖eslint中和prettier格式化规则冲突，以`prettier`为准
 

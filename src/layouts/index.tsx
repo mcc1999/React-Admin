@@ -8,30 +8,31 @@ import {
   QuestionCircleFilled,
 } from "@ant-design/icons";
 import { Dropdown } from "antd";
-
-const pagePathWithoutLayout = ["/", "/login"];
+import useReactAdminStore from "@/stores";
+import { routesWithoutLayout } from "@/router";
 
 const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const username = useReactAdminStore((state) => state.username);
 
-  return pagePathWithoutLayout.includes(location.pathname) ? (
+  return routesWithoutLayout.findIndex((r) => r.path === location.pathname) !==
+    -1 ? (
     <Outlet />
   ) : (
     <ProLayout
       className="h-screen"
       layout="mix"
       title="React Admin"
-      location={window.location}
       route={route}
       menuItemRender={(item, dom) => (
         <div onClick={() => navigate(item.itemPath)}>{dom}</div>
       )}
       fixedHeader
       avatarProps={{
-        src: "https://picsum.photos/200",
+        src: "https://loremflickr.com/300/300",
         size: "small",
-        title: "username",
+        title: username,
         render: (props, dom) => {
           return (
             <Dropdown

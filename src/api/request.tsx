@@ -1,8 +1,10 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { message, notification } from "@/components/EscapeAntd";
 import { getErrorMsg } from "@/common/error-msg";
-import { TOKEN, USER_TYPE } from "@/common/localStorage-key";
+import { TOKEN } from "@/common/localStorage-key";
 import router from "@/router";
+import useReactAdminStore from "@/stores";
+import { UserType } from "@/stores/userSlice";
 
 // 扩展 axios 的 TS 类型
 declare module "axios" {
@@ -29,14 +31,15 @@ const requestTokenInterceptor = (config: InternalAxiosRequestConfig<any>) => {
 const guestRequestTokenInterceptor = (
   config: InternalAxiosRequestConfig<any>,
 ) => {
-  const userType = localStorage.getItem(USER_TYPE);
+  const userType = useReactAdminStore.getState().userType;
   const accessibleURL = [
     "/api/v1/guestInfo",
     // ...
   ];
+
   if (
     config.method !== "get" &&
-    userType === "guest" &&
+    userType === UserType.GUEST &&
     !accessibleURL.includes(config.url!)
   ) {
     message.error("访客没有权限发送此请求！");

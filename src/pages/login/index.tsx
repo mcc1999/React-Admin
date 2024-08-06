@@ -4,15 +4,19 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { postLogin } from "@/api/user";
 import { LOGIN_PARAM, TOKEN } from "@/common/localStorage-key";
 import { useNavigate } from "react-router-dom";
+import useReactAdminStore from "@/stores";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const storeUserInfo = useReactAdminStore((state) => state.storeUserInfo);
 
   const onFinish = async () => {
     const { remember, ...restValues } = await form.validateFields();
     postLogin(restValues).then((res) => {
-      const { token } = res.data;
+      const { token, username, userType } = res.data;
+
+      storeUserInfo({ username, userType });
       localStorage.setItem(TOKEN, token);
       if (remember) {
         // password不应该明文存储，需加密，这里简单处理。
