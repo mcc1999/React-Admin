@@ -11,13 +11,17 @@ const Login: React.FC = () => {
 
   const onFinish = async () => {
     const { remember, ...restValues } = await form.validateFields();
-    console.log("Received values of form: ", restValues);
     postLogin(restValues).then((res) => {
       const { token } = res.data;
       localStorage.setItem(TOKEN, token);
       if (remember) {
         // password不应该明文存储，需加密，这里简单处理。
-        localStorage.setItem(LOGIN_PARAM, JSON.stringify(restValues));
+        localStorage.setItem(
+          LOGIN_PARAM,
+          JSON.stringify({ remember, ...restValues }),
+        );
+      } else {
+        localStorage.removeItem(LOGIN_PARAM);
       }
       navigate("/dashboard");
     });
@@ -30,7 +34,6 @@ const Login: React.FC = () => {
         className="max-w-[400px] min-w-[340px] w-2/5 p-[24px] pt-[48px] rounded-md shadow-[12px_12px_12px_rgba(0,0,0,0.1),-10px_-10px_10px_white]"
         form={form}
         initialValues={{
-          remember: true,
           ...JSON.parse(localStorage.getItem(LOGIN_PARAM) || "{}"),
         }}
         onFinish={onFinish}

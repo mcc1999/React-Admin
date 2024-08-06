@@ -83,8 +83,8 @@ const handleGeneralError = (response: AxiosResponse) => {
   const { code, message: msg } = response.data;
   const { skipErrorHandler } = response.config;
 
-  if (skipErrorHandler) return Promise.reject(msg);
   if (code !== "200") {
+    if (skipErrorHandler) return Promise.reject(msg);
     message.error(msg);
   }
 };

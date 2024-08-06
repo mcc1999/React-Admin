@@ -12,5 +12,5 @@ export async function postLogin(params: {
 }
 
 export async function getDashboard() {
-  return request.get("/api/v1/dashboard/info111", { skipErrorHandler: true });
+  return request.get("/api/v1/dashboard/info", { skipErrorHandler: true });
 }

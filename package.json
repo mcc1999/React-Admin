@@ -19,6 +19,8 @@
     "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --max-warnings 0"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "@ant-design/pro-components": "^2.7.15",
     "@loadable/component": "^5.16.4",
     "ahooks": "^3.8.0",
     "antd": "^5.19.4",

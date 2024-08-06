@@ -15,7 +15,6 @@ const withAuth =
      */
     const switchRouter = () => {
       const localToken = localStorage.getItem(TOKEN);
-      console.log("with Auth pathname", pathname, localToken);
       if (!localToken && pathname !== "/login" && pathname !== "/register") {
         navigate("/login");
       }

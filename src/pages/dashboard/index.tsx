@@ -1,4 +1,5 @@
 import { getDashboard } from "@/api/user";
+import { PageContainer } from "@ant-design/pro-components";
 import { useEffect } from "react";
 
 const Dashboard: React.FC = () => {
@@ -7,7 +8,7 @@ const Dashboard: React.FC = () => {
     getDashboard();
   }, []);
 
-  return <>Dashboard</>;
+  return <PageContainer>Dashboard</PageContainer>;
 };
 
 export default Dashboard;
