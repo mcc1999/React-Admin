@@ -5,11 +5,13 @@ import { postLogin } from "@/api/user";
 import { LOGIN_PARAM, TOKEN } from "@/common/localStorage-key";
 import { useNavigate } from "react-router-dom";
 import useReactAdminStore from "@/stores";
+import { ThemeColor } from "@/stores/themeSlice";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const storeUserInfo = useReactAdminStore((state) => state.storeUserInfo);
+  const themeColor = useReactAdminStore((state) => state.themeColor);
 
   const onFinish = async () => {
     const { remember, ...restValues } = await form.validateFields();
@@ -32,10 +34,20 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center bg-[#f9f9f9]">
+    <div
+      className={
+        themeColor === ThemeColor.Light
+          ? "h-screen flex justify-center items-center bg-[#f9f9f9]"
+          : "h-screen flex justify-center items-center bg-[#1a1a1a]"
+      }
+    >
       <Form
         name="normal_login"
-        className="max-w-[400px] min-w-[340px] w-2/5 p-[24px] pt-[48px] rounded-md shadow-[12px_12px_12px_rgba(0,0,0,0.1),-10px_-10px_10px_white]"
+        className={
+          themeColor === ThemeColor.Light
+            ? "max-w-[400px] min-w-[340px] w-2/5 p-[24px] pt-[48px] rounded-md shadow-[15px_15px_25px_rgba(0,0,0,0.1),-10px_-10px_20px_white]"
+            : "max-w-[400px] min-w-[340px] w-2/5 p-[24px] pt-[48px] rounded-md shadow-[15px_15px_25px_black,-10px_-10px_20px_rgba(255,255,255,0.1)]"
+        }
         form={form}
         initialValues={{
           ...JSON.parse(localStorage.getItem(LOGIN_PARAM) || "{}"),

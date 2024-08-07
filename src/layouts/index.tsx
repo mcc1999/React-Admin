@@ -2,19 +2,24 @@ import { ProLayout } from "@ant-design/pro-components";
 import route from "@/router/route";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
+  BgColorsOutlined,
   GithubFilled,
-  InfoCircleFilled,
   LogoutOutlined,
-  QuestionCircleFilled,
+  MoonOutlined,
+  SettingOutlined,
+  SunOutlined,
 } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import useReactAdminStore from "@/stores";
 import { routesWithoutLayout } from "@/router";
+import { ThemeType } from "@/stores/themeSlice";
 
 const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const username = useReactAdminStore((state) => state.username);
+  const theme = useReactAdminStore((state) => state.theme);
+  const updateTheme = useReactAdminStore((state) => state.updateTheme);
 
   return routesWithoutLayout.findIndex((r) => r.path === location.pathname) !==
     -1 ? (
@@ -57,9 +62,35 @@ const Layout = () => {
       actionsRender={(props) => {
         if (props.isMobile) return [];
         return [
-          <InfoCircleFilled key="InfoCircleFilled" />,
-          <QuestionCircleFilled key="QuestionCircleFilled" />,
           <GithubFilled key="GithubFilled" />,
+          <Dropdown
+            menu={{
+              selectedKeys: [theme],
+              items: [
+                {
+                  key: ThemeType.Light,
+                  icon: <SunOutlined />,
+                  label: "Light",
+                },
+                {
+                  key: ThemeType.Dark,
+                  icon: <MoonOutlined />,
+                  label: "Dark",
+                },
+                {
+                  key: ThemeType.SYSTEM,
+                  icon: <SettingOutlined />,
+                  label: "System",
+                },
+              ],
+              onClick: ({ key }) => {
+                // @ts-ignore
+                updateTheme(key);
+              },
+            }}
+          >
+            <BgColorsOutlined />
+          </Dropdown>,
         ];
       }}
     >
