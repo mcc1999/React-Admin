@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import createUserSlice, { UserSlice } from "./userSlice";
-import createThemeSlice, { ThemeSlice } from "./themeSlice";
+import createSettingSlice, { SettingSlice } from "./settingSlice";
 
-const useReactAdminStore = create<UserSlice & ThemeSlice>()((...a) => ({
+const useReactAdminStore = create<UserSlice & SettingSlice>()((...a) => ({
   ...createUserSlice(...a),
-  ...createThemeSlice(...a),
+  ...createSettingSlice(...a),
 }));
 
 export default useReactAdminStore;

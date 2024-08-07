@@ -4,7 +4,7 @@ import { getErrorMsg } from "@/common/error-msg";
 import { TOKEN } from "@/common/localStorage-key";
 import router from "@/router";
 import useReactAdminStore from "@/stores";
-import { UserType } from "@/stores/userSlice";
+import { UserType } from "@/api/user/typing.d";
 
 // 扩展 axios 的 TS 类型
 declare module "axios" {

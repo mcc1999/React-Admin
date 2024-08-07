@@ -1,3 +1,5 @@
+import { SETTING } from "@/common/localStorage-key";
+import i18n from "@/locale";
 import { StateCreator } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -11,20 +13,37 @@ export enum ThemeColor {
   Dark = "dark",
 }
 
-export interface ThemeSlice {
+export enum Language {
+  ZH_HANS = "zh-Hans",
+  ZH_HANT = "zh-Hant",
+  EN = "en",
+  AR = "ar",
+}
+
+export enum PageDirection {
+  LTR = "ltr",
+  RTL = "rtl",
+}
+
+export interface SettingSlice {
   theme: ThemeType;
   themeColor: ThemeColor;
+  language: Language;
+  pageDirection: PageDirection;
   updateTheme: (newTheme?: ThemeType) => void;
+  changeLanguage: (newLanguage: Language) => void;
 }
-const createThemeSlice: StateCreator<
-  ThemeSlice,
+const createSettingSlice: StateCreator<
+  SettingSlice,
   [],
   [["zustand/persist", { theme: ThemeType; themeColor: ThemeColor }]],
-  ThemeSlice
+  SettingSlice
 > = persist(
   (set) => ({
     theme: ThemeType.SYSTEM,
     themeColor: ThemeColor.Light,
+    language: Language.ZH_HANS,
+    pageDirection: PageDirection.LTR,
     updateTheme: (newTheme) =>
       set((state) => {
         const { theme: curTheme, themeColor: curThemeColor } = state;
@@ -65,14 +84,27 @@ const createThemeSlice: StateCreator<
           }
         }
       }),
+    changeLanguage: (newLanguage: Language) =>
+      set(() => {
+        i18n.changeLanguage(newLanguage);
+        if (newLanguage === Language.AR) {
+          return {
+            language: newLanguage,
+            pageDirection: PageDirection.RTL,
+          };
+        }
+        return { language: newLanguage, pageDirection: PageDirection.LTR };
+      }),
   }),
   {
-    name: "reactAdminTheme",
+    name: SETTING,
     partialize: (state) => ({
       theme: state.theme,
       themeColor: state.themeColor,
+      language: state.language,
+      pageDirection: state.pageDirection,
     }),
   },
 );
 
-export default createThemeSlice;
+export default createSettingSlice;

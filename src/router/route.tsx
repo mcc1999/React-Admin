@@ -1,5 +1,5 @@
 import useReactAdminStore from "@/stores";
-import { UserType } from "@/stores/userSlice";
+import { UserType } from "@/api/user/typing.d";
 import {
   SmileFilled,
   CrownFilled,
@@ -29,7 +29,6 @@ const route: Route = {
       name: "表格",
       icon: <CrownFilled />,
       component: "@/pages/table",
-      hideChildrenInMenu: true,
       routes: [
         {
           path: "/table/sub-table1",
@@ -80,4 +79,4 @@ const resolveRoutesAuth = (route: Route): Route | null => {
   return route;
 };
 
-export default resolveRoutesAuth(route) || {};
+export default resolveRoutesAuth(route)!;

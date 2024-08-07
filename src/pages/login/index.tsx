@@ -3,15 +3,17 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import { postLogin } from "@/api/user";
 import { LOGIN_PARAM, TOKEN } from "@/common/localStorage-key";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useReactAdminStore from "@/stores";
-import { ThemeColor } from "@/stores/themeSlice";
+import { ThemeColor } from "@/stores/settingSlice";
+import { useTranslation } from "react-i18next";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const storeUserInfo = useReactAdminStore((state) => state.storeUserInfo);
   const themeColor = useReactAdminStore((state) => state.themeColor);
+  const { t } = useTranslation();
 
   const onFinish = async () => {
     const { remember, ...restValues } = await form.validateFields();
@@ -57,10 +59,10 @@ const Login: React.FC = () => {
         <Form.Item
           name="username"
           rules={[
-            { required: true, message: "请输入用户名" },
+            { required: true, message: t("请输入用户名") },
             {
               pattern: /^[a-zA-Z0-9_-]{4,16}$/,
-              message: "用户名应由4-16位英文字母、数字、_或-组成",
+              message: t("用户名应由4-16位英文字母、数字、_或-组成"),
             },
           ]}
         >
@@ -68,21 +70,25 @@ const Login: React.FC = () => {
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "请输入密码" }]}
+          rules={[{ required: true, message: t("请输入密码") }]}
         >
           <Input.Password prefix={<LockOutlined />} placeholder="Password" />
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox>{t("记住账号")}</Checkbox>
           </Form.Item>
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Log in
-          </Button>
-          Or <a href="">register now!</a>
+          <div className="flex justify-between items-center">
+            <Button type="primary" htmlType="submit">
+              {t("登录")}
+            </Button>
+            <Link className="text-blue-500" to="">
+              {t("立即注册")}
+            </Link>
+          </div>
         </Form.Item>
       </Form>
     </div>

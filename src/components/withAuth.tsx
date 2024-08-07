@@ -28,7 +28,7 @@ const withAuth =
     const fetchUserInfo = async () => {
       try {
         const res = await getCurrentUser();
-        localStorage.setItem(USER_TYPE, res.data.userType);
+        localStorage.setItem(USER_TYPE, res.data.userType.toString());
         storeUserInfo(res.data);
         return res.data;
       } catch (error) {
