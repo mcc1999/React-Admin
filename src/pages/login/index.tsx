@@ -81,11 +81,15 @@ const Login: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <div className="flex justify-between items-center">
-            <Button type="primary" htmlType="submit">
+          <div className="relative flex items-center ">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="absolute start-0"
+            >
               {t("登录")}
             </Button>
-            <Link className="text-blue-500" to="">
+            <Link className="absolute end-0 text-blue-500" to="">
               {t("立即注册")}
             </Link>
           </div>

@@ -1,8 +1,7 @@
 import { Button, Result } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const App: React.FC = () => {
-  const navigate = useNavigate();
   return (
     <div className="h-screen flex justify-center items-center bg-white">
       <Result
@@ -10,9 +9,9 @@ const App: React.FC = () => {
         title="404"
         subTitle="Sorry, the page you visited does not exist."
         extra={
-          <Button type="primary" onClick={() => navigate("/dashboard")}>
-            Back Dashboard
-          </Button>
+          <Link to="/dashboard">
+            <Button type="primary">Back Dashboard</Button>
+          </Link>
         }
       />
     </div>

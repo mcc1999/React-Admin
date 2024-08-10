@@ -88,11 +88,13 @@ const createSettingSlice: StateCreator<
       set(() => {
         i18n.changeLanguage(newLanguage);
         if (newLanguage === Language.AR) {
+          document.body.setAttribute("dir", "rtl");
           return {
             language: newLanguage,
             pageDirection: PageDirection.RTL,
           };
         }
+        document.body.setAttribute("dir", "ltr");
         return { language: newLanguage, pageDirection: PageDirection.LTR };
       }),
   }),

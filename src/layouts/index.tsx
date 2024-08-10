@@ -2,7 +2,7 @@ import { ProLayout } from "@ant-design/pro-components";
 import route from "@/router/route";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
-  BgColorsOutlined,
+  // BgColorsOutlined,
   GithubFilled,
   GlobalOutlined,
   LaptopOutlined,
@@ -13,7 +13,7 @@ import {
 import { Dropdown } from "antd";
 import useReactAdminStore from "@/stores";
 import { routesWithoutLayout } from "@/router";
-import { Language, ThemeType } from "@/stores/settingSlice";
+import { Language, ThemeColor, ThemeType } from "@/stores/settingSlice";
 import { useTranslation } from "react-i18next";
 import { Route } from "@ant-design/pro-layout/lib/typing";
 import { cloneDeep } from "lodash";
@@ -26,6 +26,7 @@ const Layout = () => {
   const username = useReactAdminStore((state) => state.username);
   const avatar = useReactAdminStore((state) => state.avatar);
   const theme = useReactAdminStore((state) => state.theme);
+  const themeColor = useReactAdminStore((state) => state.themeColor);
   const language = useReactAdminStore((state) => state.language);
   const changeLanguage = useReactAdminStore((state) => state.changeLanguage);
   const updateTheme = useReactAdminStore((state) => state.updateTheme);
@@ -56,6 +57,14 @@ const Layout = () => {
       route={i18nRoute}
       menuItemRender={(item, dom) => {
         return <Link to={item.itemPath}>{dom}</Link>;
+      }}
+      breadcrumbRender={(route) => {
+        return route?.map((r: any) => {
+          if (!r.component) {
+            r.linkPath = "";
+          }
+          return r;
+        });
       }}
       fixedHeader
       avatarProps={{
@@ -145,7 +154,12 @@ const Layout = () => {
               },
             }}
           >
-            <BgColorsOutlined />
+            {/* <BgColorsOutlined /> */}
+            {themeColor === ThemeColor.Light ? (
+              <SunOutlined />
+            ) : (
+              <MoonOutlined />
+            )}
           </Dropdown>,
         ];
       }}

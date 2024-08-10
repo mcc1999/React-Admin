@@ -28,7 +28,7 @@ const route: Route = {
       path: "/table",
       name: "表格",
       icon: <CrownFilled />,
-      component: "@/pages/table",
+      // component: "@/pages/table",
       routes: [
         {
           path: "/table/sub-table1",
@@ -41,7 +41,7 @@ const route: Route = {
           name: "子表2",
           icon: <TabletFilled />,
           component: "@/pages/table/subPage/table2",
-          access: "isAdmin",
+          // access: "isAdmin",
         },
       ],
     },
