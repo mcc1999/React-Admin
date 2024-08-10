@@ -51,7 +51,7 @@ const guestRequestTokenInterceptor = (
 // request异常处理程序
 const requestErrorHandler = (error: any) => {
   const { request } = error;
-  if (!request || request.options?.skipErrorHandler) throw error;
+  if (!request) throw error;
 
   throw error;
 };

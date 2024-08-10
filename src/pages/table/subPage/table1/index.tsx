@@ -171,7 +171,7 @@ const Table1 = () => {
           },
         }}
         rowKey="id"
-        search={false}
+        // search={false}
         options={false}
         form={{
           // 由于配置了 transform，提交的参数与定义的不同这里需要转化一下
@@ -186,7 +186,8 @@ const Table1 = () => {
           },
         }}
         pagination={{
-          pageSize: 5,
+          defaultPageSize: 10,
+          showSizeChanger: true,
           onChange: (page) => console.log(page),
         }}
         dateFormatter="string"
